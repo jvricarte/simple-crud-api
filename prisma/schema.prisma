@@ -11,10 +11,21 @@ datasource db {
 }
 
 model Suggestion {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  created_at  DateTime @default(now())
+  id                String            @id @default(uuid())
+  title             String
+  description       String
+  created_at        DateTime          @default(now())
+  reply_suggestions ReplySuggestion[]
 
   @@map("suggestions")
+}
+
+model ReplySuggestion {
+  id            String     @id @default(uuid())
+  reply         String
+  created_at    DateTime   @default(now())
+  suggestion    Suggestion @relation(fields: [suggestion_id], references: [id])
+  suggestion_id String
+
+  @@map("reply_suggestions")
 }
