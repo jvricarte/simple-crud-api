@@ -6,6 +6,9 @@ export class GetSuggestionIdRepository {
     const result = await prismaCliente.suggestion.findFirst({
       where: {
         id
+      },
+      include: {
+        reply_suggestions: true
       }
     });
 
